@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Stork Index
         run: |
-          ./stork build --input public/stork.json --output public/site.st
+          ./stork build --input public/stork.json --output public/site.st.json
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
