@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-  <div class="site-title"><a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></div>
+  {{ partialCached "header/logos.html" . }}
   <div class="stork-wrapper">
     <input data-stork="site" class="stork-input" placeholder="Search">
     <div data-stork="site-output" class="stork-output"></div>

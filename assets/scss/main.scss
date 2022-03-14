@@ -9,17 +9,22 @@ body {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 18px;
   line-height: 1.6;
-  margin: 0 auto;
+  margin: 2rem auto;
   max-width: 720px;
   width: 90%;
 }
 
-.site-title {
-  font-size: 250%;
-  a {
-    text-decoration: none;
-    color: $black;
-  }
+.logo-container {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  padding-right: 30px;
+}
+
+.logo-plus {
+  padding-bottom: 20px;
 }
 
 .stork-wrapper .stork-excerpt {
