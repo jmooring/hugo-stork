@@ -13,3 +13,11 @@ hugo
 cp public/site.st.json static/site.st.json
 hugo server
 ```
+
+## Related issues and discussions
+
+https://github.com/jameslittle230/stork/discussions/258
+
+https://github.com/jameslittle230/stork/issues/250
+
+https://github.com/jameslittle230/stork/discussions/259
