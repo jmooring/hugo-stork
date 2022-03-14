@@ -1,0 +1,13 @@
+baseURL = 'https://jmooring.github.io/hugo-stork/'
+languageCode = 'en-US'
+title = 'Hugo + Stork'
+
+disableKinds = ['RSS','sitemap','taxonomy','term']
+
+[outputFormats.stork]
+mediaType = 'application/json'
+baseName = 'stork'
+isPlainText = true
+
+[outputs]
+home = ['html','stork']

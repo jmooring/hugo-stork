@@ -1,0 +1,43 @@
+{{- /*
+  https://stork-search.net/
+  https://stork-search.net/docs/
+  https://stork-search.net/docs/config-ref
+  https://stork-search.net/themes
+  https://github.com/jameslittle230/stork
+  https://github.com/jameslittle230/stork/discussions
+*/}}
+
+{{- /* Configuration */}}
+{{- $config := dict
+  "input" (dict
+    "base_directory" "public"
+    "exclude_html_selector" ".highlight"
+    "html_selector" "main"
+    "title_boost" "Moderate"
+  )
+  "output" (dict
+    "displayed_results_count" 5
+    "excerpts_per_result" 3
+    "save_nearest_html_id" true
+  )
+}}
+
+{{- /* Build the files map */}}
+{{- $files := slice }}
+{{- range site.Sections }}
+  {{- range .Pages }}
+    {{- $file := dict
+      "title" .Title
+      "url" .RelPermalink
+      "path" (path.Join (strings.TrimPrefix site.BaseURL .Permalink) "index.html")
+      "filetype" "HTML"
+    }}
+    {{- $files = $files | append $file }}
+  {{- end }}
+{{- end }}
+
+{{- /* Merge the files map into the configuration map */}}
+{{- $config = merge $config (dict "input" (dict "files" $files)) }}
+
+{{- /* Render */}}
+{{- jsonify (dict "indent" "  ") $config }}
