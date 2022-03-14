@@ -1,7 +1,7 @@
 {{ define "main" }}
   <main>
     {{ .Content }}
-    {{ range (.Paginate .Site.RegularPages.ByTitle 5).Pages }}
+    {{ range (.Paginate .Site.RegularPages.ByTitle 3).Pages }}
       <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       {{ .Summary }}
       {{ if .Truncated }}
