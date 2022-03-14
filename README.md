@@ -7,9 +7,9 @@ This site has 500 articles.
 ## Building the site locally
 
 ```bash
-rm -rf public/ static/site.st
+rm -rf public/ static/site.st.json
 hugo
-./stork build --input public/stork.json --output public/site.st
-cp public/site.st static/site.st 
+./stork build --input public/stork.json --output public/site.st.json
+cp public/site.st.json static/site.st.json
 hugo server
 ```
