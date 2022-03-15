@@ -31,6 +31,11 @@ img.logo-plus {
   line-height: 1.2;
 }
 
+.stork-wrapper .stork-progress {
+  margin-left: 8px;
+  max-width: calc(100% - 16px);
+}
+
 nav.pagination {
   text-align: center;
 }
