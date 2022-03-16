@@ -13,7 +13,9 @@ main() {
   declare stork_exec=${stork_arch}-${stork_version}
   declare stork_url=${stork_releases}/v${stork_version}/${stork_arch}
 
+  # Install Stork if it's not already installed.
   if [[ ! -f "${stork_exec}" ]]; then
+    echo -e "\nInstalling Stork...\n"
     wget --no-verbose "${stork_url}" ||
       { echo "Error: unable to wget ${stork_url}"; exit 1; }
     mv "${stork_arch}" "${stork_exec}" ||
@@ -22,8 +24,13 @@ main() {
       { echo "Error: unable to chmod ${stork_exec}"; exit 1; }
   fi
 
+  # Build the site.
+  echo -e "\nBuilding site...\n"
   hugo --gc --minify ||
     { echo "Error: unable to run hugo"; exit 1; }
+
+  # Build the Stork index.
+  echo -e "\nBuilding Stork index...\n"
   ./${stork_exec} build --input "${hugo_publish_dir}/${stork_config_file}" --output "${hugo_publish_dir}/${stork_index_file}" ||
     { echo "Error: unable to run stork"; exit 1; }
 }
