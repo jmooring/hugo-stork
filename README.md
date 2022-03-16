@@ -20,7 +20,7 @@ Stork generates a binary index file. With this test site, the index file is 6&nb
 
 GitHub pages uses gzip compression, producing a 2.3&nbsp;MB index file.
 
-Netlify used Brotli compression, though not aggressively, producing a 2.1&nbsp;MB index file.
+Netlify uses Brotli compression, though not aggressively, producing a 2.1&nbsp;MB index file.
 
 If you have a host that can serve pre-compressed assets, aggressive Brotli compression produces a 1.5&nbsp;MB file.
 
@@ -30,3 +30,4 @@ If you have a host that can serve pre-compressed assets, aggressive Brotli compr
 - [Use stopword lists to reduce index size and improve search results](https://github.com/jameslittle230/stork/issues/250)
 - [Search metrics](https://github.com/jameslittle230/stork/discussions/259)
 - [Compensate for border radius when displaying progress bar](https://github.com/jameslittle230/stork/issues/260)
+- [Serving pre-compressed Brotli files](https://answers.netlify.com/t/serving-pre-compressed-brotli-files/53515)
