@@ -14,6 +14,16 @@ This site is built with [Hugo](https://gohugo.io/) and includes the [Stork](http
 hugo server --renderToDisk
 ```
 
+## Notes
+
+Stork generates a binary index file. With this test site, the index file is 6&nbsp;MB. To force hosts such as GitHub Pages or Netlify to compress the file, we give it a `json` extension. We could use `html` or `css` instead, but `json` seemed like a better fit.
+
+GitHub pages uses gzip compression, producing a 2.3&nbsp;MB index file.
+
+Netlify used Brotli compression, though not aggressively, producing a 2.1&nbsp;MB index file.
+
+If you have a host that can serve pre-compressed assets, aggressive Brotli compression produces a 1.5&nbsp;MB file.
+
 ## Related issues and discussions
 
 - [Any tips for decreasing index file size?](https://github.com/jameslittle230/stork/discussions/258)
