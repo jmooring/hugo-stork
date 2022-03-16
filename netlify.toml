@@ -3,4 +3,4 @@
 
 [build.environment]
   HUGO_BASEURL = 'https://hugo-stork.netlify.app/'
-  HUGO_VERSION = '0.94.2'
+  HUGO_VERSION = '0.95.0'
