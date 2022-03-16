@@ -1,23 +1,22 @@
 # Hugo + Stork
 
-This site was built with [Hugo](https://gohugo.io/) and includes the [Stork](https://stork-search.net/) library for full-text search.
+This site is built with [Hugo](https://gohugo.io/) and includes the [Stork](https://stork-search.net/) library for full-text search. The site contains 500 articles with an average of 520 words per article.
 
-This site has 500 articles.
+## Live test sites
 
-## Building the site locally
+- Hosted by GitHub: <https://jmooring.github.io/hugo-stork/>
+- Hosted by Netlify: <https://hugo-stork.netlify.app>
+
+## Test locally on Ubuntu
 
 ```bash
-rm -rf public/ static/site.st.json
-hugo
-./stork build --input public/stork.json --output public/site.st.json
-cp public/site.st.json static/site.st.json
-hugo server
+./build.sh
+hugo server --renderToDisk
 ```
 
 ## Related issues and discussions
 
-https://github.com/jameslittle230/stork/discussions/258
-
-https://github.com/jameslittle230/stork/issues/250
-
-https://github.com/jameslittle230/stork/discussions/259
+- [Any tips for decreasing index file size?](https://github.com/jameslittle230/stork/discussions/258)
+- [Use stopword lists to reduce index size and improve search results](https://github.com/jameslittle230/stork/issues/250)
+- [Search metrics](https://github.com/jameslittle230/stork/discussions/259)
+- [Compensate for border radius when displaying progress bar](https://github.com/jameslittle230/stork/issues/260)

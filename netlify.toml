@@ -1,7 +1,6 @@
 [build]
-  command = "hugo --minify"
-  publish = "public"
+  command = 'chmod +x build.sh && ./build.sh'
 
 [build.environment]
-  HUGO_VERSION = "0.94.2"
-  HUGO_ENVIRONMENT = "netlify"
+  HUGO_BASEURL = 'https://hugo-stork.netlify.app/'
+  HUGO_VERSION = '0.94.2'

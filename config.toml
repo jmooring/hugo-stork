@@ -1,4 +1,4 @@
-baseURL = 'https://jmooring.github.io/hugo-stork/'
+baseURL = 'https://example.org/'
 languageCode = 'en-US'
 title = 'Hugo + Stork'
 
