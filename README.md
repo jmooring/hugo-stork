@@ -24,6 +24,36 @@ Netlify uses Brotli compression, though not aggressively, producing a 2.1&nbsp;M
 
 If you have a host that can serve pre-compressed assets, aggressive Brotli compression produces a 1.5&nbsp;MB file.
 
+## Bag of bytes
+
+When examining the page load, you can see that the browser downloads some of the assets in parallel. I ran some experiments, using a large image, to see if there would be any benefit to splitting the Stork index into pieces.
+
+Spoiler alert: splitting the image into chunks does _not_ improve performance.
+
+<https://hugo-stork.netlify.app/tests/>
+
+Large image:
+
+- A single image
+- 5,736,890 bytes
+- 4032x2268
+
+Large image (2 chunks):
+
+- The same images, split into 2 chunks
+- 6,002,033 bytes total
+- Each chunk (tile) is 4032x1134
+
+Large image (9 chunks):
+
+- The same images, split into 9 chunks
+- 6,045,716 bytes total
+- Each chunk (tile) is 1344x756
+
+This is an imperfect test because I am not splitting a binary file. I am creating multiple independent images, so the total size increases due to compression inefficiency. Even though splitting increases total size by only 5 percent, I am seeing a 10 to 20 percent drop in performance.
+
+From these rudimentary tests it appears that splitting the index would not improve performance.
+
 ## Related issues and discussions
 
 - [Any tips for decreasing index file size?](https://github.com/jameslittle230/stork/discussions/258)
