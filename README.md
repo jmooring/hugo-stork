@@ -40,13 +40,13 @@ Large image:
 
 Large image (2 chunks):
 
-- The same images, split into 2 chunks
+- The same image, split into 2 chunks
 - 6,002,033 bytes total
 - Each chunk (tile) is 4032x1134
 
 Large image (9 chunks):
 
-- The same images, split into 9 chunks
+- The same image, split into 9 chunks
 - 6,045,716 bytes total
 - Each chunk (tile) is 1344x756
 
