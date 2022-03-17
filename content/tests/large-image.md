@@ -2,6 +2,7 @@
 title = 'Large image'
 date = 2022-03-16T22:14:16-07:00
 draft = false
+weight = 10
 +++
 
 A single image:

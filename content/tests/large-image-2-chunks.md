@@ -2,6 +2,7 @@
 title = 'Large image (2 chunks)'
 date = 2022-03-17T00:18:20-07:00
 draft = false
+weight = 20
 +++
 
 Split into 2 chunks:
