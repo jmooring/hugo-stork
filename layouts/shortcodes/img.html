@@ -1,0 +1,223 @@
+{{- /*
+Renders an image to the desired dimensions while maintaining its aspect ratio.
+
+@param src {string} Image src attribute: remote, page resource, or global resource.
+@param class {string} Image class attribute: remote, page resource, or global resource. If tiled, this is the class attribute of the wrapping container.
+@param id {string} Image id attribute: remote, page resource, or global resource. If tiled, this is the id attribute of the wrapping container.
+@param alt {string} Image alt attribute. Default is an empty string.
+@param title {string} Image title attribute. Default is an empty string. If tiled, this is the title attribute of the wrapping container.
+@param width {int} Desired height of rendered image, in px. Default is the original width.
+@param height {int} Desired width of rendered image, in px. Default is the original height.
+@param anchor {string} Placement of the crop box when specifying both width and height: smart, topleft, top, topright, left, center, right, bottomleft, bottom, or bottomright. Default is smart.
+@param format {string} Desired image format: gif, jpeg, png, or webm. Default is the original format.
+@param q {string} Desired quality of rendered image, relevant for jpeg and webp, 1-100. Default is 75.
+@param tiled {bool} If true, image will be tiled into a 3x3 grid within a div element. Default is false.
+
+@returns {template.HTML}
+
+@example {{< image src="images/bryce.jpg" class="foo" id="bar" alt="Bryce Canyon" title="This is Bryce Canyon National Park" width=300 height=300 anchor="smart" format="webp" q=90 tiled=true >}}
+*/}}
+
+{{- /* Initialize. */}}
+{{- $src := "" }}
+{{- $class := "" }}
+{{- $id := "" }}
+{{- $alt := "" }}
+{{- $title := "" }}
+{{- $width := 0 }}
+{{- $height := 0 }}
+{{- $anchor := "smart" }}
+{{- $format := "" }}
+{{- $q := 75 }}
+{{- $tiled := false }}
+{{- $name := .Name }}
+{{- $position := .Position }}
+{{- $validFormats := slice "gif" "jpeg" "jpg" "png" "webp" }}
+{{- $validAnchors := slice "smart" "topleft" "top" "topright" "left" "center" "right" "bottomleft" "bottom" "bottomright" }}
+{{- $enableTileWarnings := false }}
+
+{{- /* Get parameters. */}}
+{{- with .Get "src" }}
+  {{- $src = . }}
+{{- else }}
+  {{- errorf "The %q shortcode requires a %q parameter. See %s" $name "src" $position }}
+{{- end }}
+
+{{- with .Get "class" }}
+  {{- $class = . }}
+{{- end }}
+
+{{- with .Get "id" }}
+  {{- $id = . }}
+{{- end }}
+
+{{- with .Get "alt" }}
+  {{- $alt = . }}
+{{- end }}
+
+{{- with .Get "title" }}
+  {{- $title = . }}
+{{- end }}
+
+{{- with .Get "width" }}
+  {{- $width = int . }}
+  {{- if lt $width 1 }}
+    {{- errorf "The %q specified when calling the %q shortcode is invalid. It must be greater than 1. See %s" "width" $name $position }}
+  {{- end }}
+{{- end }}
+
+{{- with .Get "height" }}
+  {{- $height = int . }}
+  {{- if lt $height 1 }}
+    {{- errorf "The %q specified when calling the %q shortcode is invalid. It must be greater than 1. See %s" "height" $name $position }}
+  {{- end }}
+{{- end }}
+
+{{- with (.Get "anchor" | lower) }}
+  {{- if in $validAnchors . }}
+    {{- $anchor = . }}
+  {{- else }}
+    {{- errorf "The %q specified when calling the %q shortcode is invalid. Valid anchors are %s. See %s" "anchor" $name (delimit $validAnchors ", " ", and ") $position }}
+  {{- end }}
+{{- end }}
+
+{{- with (.Get "format" | lower) }}
+  {{- if in $validFormats . }}
+    {{- $format = . }}
+  {{- else }}
+    {{- errorf "The %q specified when calling the %q shortcode is invalid. Valid formats are %s. See %s" "format" $name (delimit $validFormats ", " ", and ") $position }}
+  {{- end }}
+{{- end }}
+
+{{- with .Get "q" }}
+  {{- $q = int . }}
+  {{- if or (lt $q 1 ) (gt $q 100 ) }}
+    {{- errorf "The %q specified when calling the %q shortcode is invalid. It must be between 1 and 100. See %s" "q" $name $position }}
+  {{- end }}
+{{- end }}
+
+{{- if .Params }}
+  {{- if (isset .Params "tiled") }}
+    {{- if in (slice true "true") (.Get "tiled") }}
+      {{- $tiled = true }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- /* Get the image. */}}
+{{- $i := "" }}
+{{- $u := urls.Parse $src }}
+{{- if $u.IsAbs }}
+  {{- with resources.GetRemote $u.String }}
+    {{- with .Err }}
+      {{- errorf "The %q shortcode was unable to resolve the %q parameter %q to an image: %s. See %s" $name "src" $u.String . $position }}
+    {{- else }}
+      {{- /* Remote resource */}}
+      {{- $i = . }}
+    {{- end }}
+  {{- else }}
+    {{- errorf "The %q shortcode was unable to resolve the %q parameter %q to an image. See %s" $name "src" $u.String $position }}
+  {{- end }}
+{{- else }}
+  {{- with .Page.Resources.GetMatch $u.Path }}
+    {{- /* Page resource */}}
+    {{- $i = . }}
+  {{- else }}
+    {{- with resources.Get $u.Path }}
+      {{- /* Global resource */}}
+      {{- $i = . }}
+    {{- else }}
+      {{- errorf "The %q shortcode was unable to resolve the %q parameter %q to an image. See %s" $name "src" $u.Path $position }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- /* Set format if not explicitly defined in params. */}}
+{{- if not $format }}
+  {{- $format = $i.MediaType.SubType }}
+{{- end }}
+
+{{- /* Create the new image */}}
+{{- if (and $width (not $height)) }}
+  {{- /* Width but not height specified in params. */}}
+  {{- $i = $i.Resize (printf "%dx %s q%d" $width $format $q) }}
+{{- else if (and $height (not $width)) }}
+  {{- /* Height but not width specified in params. */}}
+  {{- $i = $i.Resize (printf "x%d %s q%d" $height $format $q) }}
+{{- else if (and $width $height) }}
+  {{- /* Width and height specified in params. */}}
+  {{- $i = $i.Fill (printf "%dx%d %s %s q%d" $width $height $anchor $format $q) }}
+{{- else }}
+  {{- /* Neither width nor height specified in params; use original size. */}}
+  {{- $i = $i.Resize (printf "%dx%d %s q%d" $i.Width $i.Height $format $q) }}
+{{- end }}
+
+{{- /* Render the image. */}}
+{{- if $tiled }}
+  {{- /* Warnings. */}}
+  {{- if $enableTileWarnings }}
+    {{- $remainder := math.Mod $i.Width 3 }}
+    {{- with $remainder }}
+      {{- warnf "The %q shortcode is tiling an image into a 3x3 grid, but the image width is not evenly divisible by 3. The final width will be %d px less than expected. See %s" $name $remainder $position }}
+    {{- end }}
+    {{- $remainder := math.Mod $i.Height 3 }}
+    {{- with $remainder }}
+      {{- warnf "The %q shortcode is tiling an image into a 3x3 grid, but the image height is not evenly divisible by 3. The final height will be %d px less than expected. See %s" $name $remainder $position }}
+    {{- end }}
+  {{- end }}
+  {{- /* Determine width and height of each tile. */}}
+  {{- $width := div $i.Width 3 | int }}
+  {{- $height := div $i.Height 3 | int }}
+  {{- /* Define container attributes. */}}
+  {{- $containerAttrs := dict "style" (printf "display: grid; grid-template-columns: repeat(3, 1fr); width: %dpx;" (mul $width 3)) }}
+  {{- with $class }}
+    {{- $containerAttrs = merge $containerAttrs (dict "class" .) }}
+  {{- end }}
+  {{- with $id }}
+    {{- $containerAttrs = merge $containerAttrs (dict "id" .) }}
+  {{- end }}
+  {{- with $title }}
+    {{- $containerAttrs = merge $containerAttrs (dict "title" .) }}
+  {{- end }}
+  {{- /* Render container and tiles. */ -}}
+  <div
+    {{- range $k, $v := $containerAttrs }}
+      {{- printf " %s=%q" $k $v | safe.HTMLAttr }}
+    {{- end -}}
+  >
+    {{- $counter := 1}}
+    {{- range $k, $anchor := $validAnchors }}
+      {{- if eq $anchor "smart" }}
+        {{- continue }}
+      {{- end }}
+      {{- $tileDesc := printf "tiled image: tile %d of 9" $counter }}
+      {{- $altAttrVal := printf $tileDesc}}
+      {{- with $alt }}
+        {{- $altAttrVal = printf "%s (%s)" $alt $tileDesc }}
+      {{- end }}
+      {{- with $i.Crop (printf "%dx%d %s %s q%d" $width $height $anchor $format $q) }}
+        <img src="{{ .RelPermalink }}" alt="{{ $altAttrVal }}" width="{{ .Width }}" height="{{ .Height }}">
+      {{- end }}
+      {{- $counter = add $counter 1 }}
+    {{- end }}
+  </div>
+{{- else }}
+  {{- $attrs := dict "src" $i.RelPermalink "width" (string $i.Width) "height" (string $i.Height) }}
+  {{- with $class }}
+    {{- $attrs = merge $attrs (dict "class" .) }}
+  {{- end }}
+  {{- with $id }}
+    {{- $attrs = merge $attrs (dict "id" .) }}
+  {{- end }}
+  {{- with $alt }}
+    {{- $attrs = merge $attrs (dict "alt" .) }}
+  {{- end }}
+  {{- with $title }}
+    {{- $attrs = merge $attrs (dict "title" .) }}
+  {{- end -}}
+  <img
+    {{- range $k, $v := $attrs }}
+      {{- printf " %s=%q" $k $v | safe.HTMLAttr }}
+    {{- end -}}
+  >
+{{- end -}}

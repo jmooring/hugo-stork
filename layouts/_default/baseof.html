@@ -11,22 +11,27 @@
 <body>
 <header>
   <h1><a href="{{ site.Home.RelPermalink }}">Hugo + Stork</a></h1>
-  <div class="stork-wrapper">
-    <input data-stork="site" class="stork-input" placeholder="Search">
-    <div data-stork="site-output" class="stork-output"></div>
-  </div>
+  {{ if ne .Type "tests" }}
+    <div class="stork-wrapper">
+      <input data-stork="site" class="stork-input" placeholder="Search">
+      <div data-stork="site-output" class="stork-output"></div>
+    </div>
+  {{ end }}
 </header>
 
 {{ block "main" . }}
 
 {{ end }}
 
-<script src="https://files.stork-search.net/releases/v1.4.1/stork.js"></script>
-<script>
-  stork.register(
-    'site',
-    '{{ "/stork.index.json" | relLangURL }}'
-  )
-</script>
+{{ if ne .Type "tests" }}
+  <script src="https://files.stork-search.net/releases/v1.4.1/stork.js"></script>
+  <script>
+    stork.register(
+      'site',
+      '{{ "/stork.index.json" | relLangURL }}'
+    )
+  </script>
+{{ end }}
+
 </body>
 </html>
