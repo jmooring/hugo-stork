@@ -25,6 +25,9 @@
 {{- /* Build the files map */}}
 {{- $files := slice }}
 {{- range site.Sections }}
+  {{- if eq .Section "tests" }}
+    {{- continue }}
+  {{- end }}
   {{- range .Pages }}
     {{- $file := dict
       "title" .Title
