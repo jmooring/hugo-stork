@@ -59,5 +59,4 @@ From these rudimentary tests it appears that splitting the index would not impro
 - [Any tips for decreasing index file size?](https://github.com/jameslittle230/stork/discussions/258)
 - [Use stopword lists to reduce index size and improve search results](https://github.com/jameslittle230/stork/issues/250)
 - [Search metrics](https://github.com/jameslittle230/stork/discussions/259)
-- [Compensate for border radius when displaying progress bar](https://github.com/jameslittle230/stork/issues/260)
 - [Serving pre-compressed Brotli files](https://answers.netlify.com/t/serving-pre-compressed-brotli-files/53515)
