@@ -8,7 +8,7 @@ main() {
 
   declare stork_arch=stork-ubuntu-20-04
   declare stork_releases=https://files.stork-search.net/releases
-  declare stork_version=1.4.1
+  declare stork_version=1.4.2
 
   declare stork_exec=${stork_arch}-${stork_version}
   declare stork_url=${stork_releases}/v${stork_version}/${stork_arch}

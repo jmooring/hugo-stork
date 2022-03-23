@@ -23,12 +23,6 @@ header h1 a {
   line-height: 1.2;
 }
 
-// https://github.com/jameslittle230/stork/issues/260
-.stork-wrapper .stork-progress {
-  margin-left: 8px;
-  max-width: calc(100% - 16px);
-}
-
 nav.pagination {
   text-align: center;
 }
