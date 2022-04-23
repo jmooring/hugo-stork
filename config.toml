@@ -3,6 +3,7 @@ languageCode = 'en-US'
 title = 'Hugo + Stork'
 
 disableKinds = ['RSS','sitemap','taxonomy','term']
+enableGitInfo = true
 
 [outputFormats.stork]
 mediaType = 'application/json'

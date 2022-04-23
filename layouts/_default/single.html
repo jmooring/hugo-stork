@@ -2,5 +2,8 @@
   <main>
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+    {{ with .GitInfo }}
+      <p><em>Last modified: {{ .AuthorDate | time.Format ":date_long" }}</em></p>
+    {{ end }}
   </main>
 {{ end }}
