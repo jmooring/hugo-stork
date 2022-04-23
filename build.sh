@@ -24,6 +24,13 @@ main() {
       { echo "Error: unable to chmod ${stork_exec}"; exit 1; }
   fi
 
+  # Configure Git
+  # See https://github.com/gohugoio/hugo/issues/9810
+  if [[ "${CI:-false}" == "true" ]]; then
+    git config --global core.quotepath false ||
+      { echo "Error: unable to configure Git"; exit 1; }
+  fi
+
   # Build the site.
   echo -e "\nBuilding site...\n"
   hugo --gc --minify ||
