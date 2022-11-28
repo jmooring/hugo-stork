@@ -13,6 +13,14 @@ main() {
   declare stork_exec=${stork_arch}-${stork_version}
   declare stork_url=${stork_releases}/v${stork_version}/${stork_arch}
 
+  # Install dart-sass-embedded if it's not already installed.
+  if ! hash dart-sass-embedded 2>/dev/null; then
+    if [[ "${NETLIFY:-false}" != "true" ]]; then
+      sudo snap install dart-sass-embedded ||
+        { echo "Error: unable to install dart-sass-embeddded"; exit 1; }
+    fi
+  fi
+
   # Install Stork if it's not already installed.
   if [[ ! -f "${stork_exec}" ]]; then
     echo -e "\nInstalling Stork...\n"
