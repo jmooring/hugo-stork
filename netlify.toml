@@ -1,6 +1,6 @@
 [build]
-  command = 'chmod +x build.sh && ./build.sh'
+command = 'chmod +x build.sh && ./build.sh'
 
 [build.environment]
-  HUGO_BASEURL = 'https://hugo-stork.netlify.app/'
-  HUGO_VERSION = '0.97.3'
+HUGO_BASEURL = 'https://hugo-stork.netlify.app/'
+HUGO_VERSION = '0.107.0'
