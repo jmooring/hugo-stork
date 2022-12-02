@@ -7,7 +7,7 @@
   {{ partial "head/title.html" . }}
   <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.4.2/basic.css">
   {{ partialCached "head/css.html" . }}
-  <link rel="preload" as="fetch" href="{{ "/stork.index.json" | relLangURL }}" crossorigin="anonymous">
+  <link rel="preload" as="fetch" href="{{ "stork.index.json" | relLangURL }}" crossorigin="anonymous">
 </head>
 <body>
 <header>
@@ -29,7 +29,7 @@
   <script>
     stork.register(
       'site',
-      '{{ "/stork.index.json" | relLangURL }}'
+      '{{ "stork.index.json" | relLangURL }}'
     )
   </script>
 {{ end }}

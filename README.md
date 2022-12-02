@@ -18,9 +18,9 @@ hugo server --renderToDisk
 
 Stork generates a binary index file. With this test site, the index file is 6&nbsp;MB. To force hosts such as GitHub Pages or Netlify to compress the file, we give it a `json` extension. We could use `html` or `css` instead, but `json` seemed like a better fit.
 
-GitHub pages uses gzip compression, producing a 2.3&nbsp;MB index file.
+GitHub pages uses gzip compression, producing a 2.0&nbsp;MB index file.
 
-Netlify uses Brotli compression, though not aggressively, producing a 2.1&nbsp;MB index file.
+Netlify uses Brotli compression, though not aggressively, producing a 1.8&nbsp;MB index file.
 
 If you have a host that can serve pre-compressed assets, aggressive Brotli compression produces a 1.5&nbsp;MB file.
 
