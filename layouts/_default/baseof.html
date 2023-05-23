@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
   <meta name="description" content="{{ or .Description .Summary site.Home.Description }}">
   {{ partial "head/title.html" . }}
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.4.2/basic.css">
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.5.0/basic.css">
   {{ partialCached "head/css.html" . }}
   <link rel="preload" as="fetch" href="{{ "stork.index.json" | relLangURL }}" crossorigin="anonymous">
 </head>
@@ -25,7 +25,7 @@
 {{ end }}
 
 {{ if ne .Type "tests" }}
-  <script src="https://files.stork-search.net/releases/v1.4.2/stork.js"></script>
+  <script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
   <script>
     stork.register(
       'site',
