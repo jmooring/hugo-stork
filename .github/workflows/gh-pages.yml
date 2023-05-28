@@ -32,7 +32,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.112.1
+      HUGO_VERSION: 0.112.4
       STORK_VERSION: 1.5.0
       STORK_EXEC: stork-ubuntu-20-04
     steps:
