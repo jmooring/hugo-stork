@@ -1,5 +1,19 @@
 # Hugo + Stork
 
+## Upstream project discontinued
+
+The [upstream project](https://github.com/jameslittle230/stork) was discontinued on 18 June 2023 ([see announcement](https://github.com/jameslittle230/stork/discussions/360)).
+
+Switch to [Pagefind](https://pagefind.app/) by [Cloud Cannon](https://cloudcannon.com/):
+
+- Simple to add to an existing site
+- Fast indexing and search
+- Easy to configure and style
+
+And the project is [well-maintained](https://github.com/cloudcannon/pagefind) by a great team and trusted organization.
+
+## Overview
+
 This site is built with [Hugo](https://gohugo.io/) and includes the [Stork](https://stork-search.net/) library for full-text search. The site contains 500 articles with an average of 520 words per article.
 
 ## Live test sites
