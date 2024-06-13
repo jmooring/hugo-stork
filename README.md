@@ -16,11 +16,6 @@ And the project is [well-maintained](https://github.com/cloudcannon/pagefind) by
 
 This site is built with [Hugo](https://gohugo.io/) and includes the [Stork](https://stork-search.net/) library for full-text search. The site contains 500 articles with an average of 520 words per article.
 
-## Live test sites
-
-- Hosted by GitHub: <https://jmooring.github.io/hugo-stork/>
-- Hosted by Netlify: <https://hugo-stork.netlify.app>
-
 ## Test locally on Ubuntu
 
 ```bash
